@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+
+<div class="pai_login">
+    <div class="card_login">
+        <form class="form-somar" action="{{url_for('triangulo')}}" method="post">
+            <h3>Login</h3>
+            <label for="input_cpf"> CPF: </label>
+            <input id="input_cpf" placeholder="Digite o CPF" type="number" name="form-cpf" class="form-control w-100">
+
+            <label for="input_senha" >Senha:</label>
+            <input id="input_senha" placeholder="Digite a senha" type="password" name="form-senha" class="form-control w-100">
+
+            <button type="submit" class="btn btn-info">Cadastrar</button>
+        </form>
+        </div>
+</div>
+
+
+
+
+
+{% endblock %}
