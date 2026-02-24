@@ -121,7 +121,7 @@ a {
 
 .icon_calculo {
     font-size: 40px;
-    color: dimgray;
+    color: deepskyblue;
 }
 
 .pai_login{
@@ -135,5 +135,5 @@ a {
 .card_login{
     width: 200px;
     height: 280px;
-    background-color: dimgray;
+    background-color: deepskyblue;
 }

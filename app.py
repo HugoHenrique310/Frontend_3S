@@ -1,23 +1,120 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, url_for, flash, request, redirect
+from sqlalchemy.exc import SQLAlchemyError
+
+from database import db_session, Funcionario
+from sqlalchemy import select, and_, func
+from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'shhh'
+# mover para .env
+app.config['SECRET_KEY'] = '1234'
+
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
+
+@login_manager.user_loader
+def load_user(user_id):
+    user = select(Funcionario).where(Funcionario.id == int(user_id))
+    resultado = db_session.execute(user).scalar_one_or_none()
+    return resultado
+
 
 @app.route('/')
 def home():
     return render_template("home.html")
 
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('form_email')
+        senha = request.form.get('form_senha')
+
+        if email and senha:
+            verificar_email = select(Funcionario).where(Funcionario.email == email)
+            resultado_email = db_session.execute(verificar_email).scalar_one_or_none()
+            if resultado_email:
+                # se encontrado na base de dados
+                if resultado_email.check_password(senha):
+                    # login correto
+                    login_user(resultado_email)
+                    flash(f'Logado com sucesso', 'success')
+                    return redirect(url_for('home'))
+                else:
+                    # login incorreto
+                    flash('Senha incorreta', 'danger')
+                    return render_template('login.html')
+            else:
+                # se não encontrado
+                flash(f'Email nao encontrado', 'danger')
+                return render_template('login.html')
+        else:
+            flash('Preencha todos os campos', 'danger')
+            return render_template('login.html')
+    else:
+        return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('Logout com sucesso', 'success')
+    return redirect(url_for('login'))
+
+
+
 @app.route('/calculos')
 def calculos():
     return render_template("calculos.html")
 
-@app.route('/funcionarios')
-def funcionarios():
-    return render_template("funcionarios.html")
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    return render_template("login.html")
+@app.route('/funcionarios', methods=['GET', 'POST'])
+@login_required
+def funcionarios():
+    if request.method == 'POST':
+        # Os nomes aqui devem ser IGUAIS ao 'name' no seu HTML
+        nome = request.form.get('form-nome')
+        data_nascimento = request.form.get('form-nascimento')
+        email = request.form.get('form-email')
+        senha = request.form.get('form-senha')
+        cpf = request.form.get('form-cpf')
+        cargo = request.form.get('form-cargo')
+        salario = request.form.get('form-salario')
+
+        if not all([nome, email, senha, cpf, cargo, salario, data_nascimento]):
+            flash('Por favor preencher todos os campos', 'danger')
+            return redirect(url_for('funcionarios'))
+
+        # Verificação de e-mail existente
+        exists_email = db_session.execute(select(Funcionario).where(Funcionario.email == email)).scalar_one_or_none()
+
+        if exists_email:
+            flash(f'Email {email} já está cadastrado', 'danger')
+            return redirect(url_for('funcionarios'))
+
+        try:
+            # Criando o objeto com os dados validados
+            novo_funcionario = Funcionario(nome=nome,email=email,data_nascimento=data_nascimento,cpf=cpf,cargo=cargo,salario=float(salario))
+            novo_funcionario.set_password(senha)
+            db_session.add(novo_funcionario)
+            db_session.commit()
+            flash(f'Funcionário {nome} cadastrado com sucesso', 'success')
+            return redirect(url_for('funcionarios'))
+        except Exception as e:
+            db_session.rollback()
+            flash(f'Erro ao cadastrar: {e}', 'danger')
+            return redirect(url_for('funcionarios'))
+
+
+    lista_funcionarios = db_session.execute(select(Funcionario)).scalars().all()
+    return render_template('funcionarios.html', funcionarios=lista_funcionarios)
+
 
 @app.route('/operacoes')
 def operacoes():

@@ -11,6 +11,21 @@
     <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 <body>
+<div>
+    {% if current_user.is_authenticated %}
+          nome:{{current_user.nome}} - {{current_user.email}}
+    <a href="{{url_for('logout')}}">Sair</a>
+    {% endif %}
+</div>
+{% for mensagem in get_flashed_messages() %}
+<div class="item_lista">
+    {{mensagem}}
+</div>
+{% endfor %}
+
+
+
+
 
 
 <div class="menu">
