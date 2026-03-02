@@ -1,14 +1,50 @@
 {% extends 'base.html' %}
-
 {% block conteudo %}
 
-<div class="home">
-    <div class="texto-left">
-        <h1>Bem vindo ao site de soluções do SENAI</h1>
+<div class="carrossel d-flex overflow-hidden">
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active bg-dark" data-bs-interval="2000">
+                <img src="/static/img/carousel-11.jpg" class="d-block w-100 opacity-50" alt="...">
+            </div>
+            <div class="carousel-item bg-dark" data-bs-interval="2000">
+                <img src="/static/img/carousel-12.jpg" class="d-block w-100 opacity-50" alt="...">
+            </div>
+            <div class="carousel-item bg-dark">
+                <img src="/static/img/carousel-13.jpg" class="d-block w-100 opacity-50" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    <div class="img-right">
 
+    <div class="w-100 h-100 position-absolute d-flex flex-column justify-content-evenly" >
+        <p class="title-senai text-white display-1 text-center">Capacitação profissional na indústria</p>
+        <p class="subtitle-senai text-white display-6 text-center">Confira os nossos cursos Profissionalizantes</p>
     </div>
 </div>
+
+<div class="cursos">
+
+    <div class="curso-text col-8">
+        <p>Descrição</p>
+
+    </div>
+
+    <div class="curso-img bg-dark col-4">
+        <img src="/static/img/carousel-14.jpg " class="w-100 h-100>
+    </div>
+
+</div>
+
+
 
 {% endblock %}

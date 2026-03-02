@@ -1,23 +1,72 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-<form action="{{url_for('login')}}" method="post">
-    <div class="pai_login">
-        <div class="card_login">
-            <form class="form-somar" action="{{url_for('triangulo')}}" method="post">
-                <h3>Login</h3>
-                <label for="input_cpf"> CPF: </label>
-                <input id="input_cpf" placeholder="Digite o CPF" type="number" name="form_cpf"
-                       class="form-control w-100">
 
-                <label for="input_senha">Senha:</label>
-                <input id="input_senha" placeholder="Digite a senha" type="password" name="form_senha"
-                       class="form-control w-100">
+<div class="pai_login">
+    <div class="card_login">
+        <form class="form-somar" action="{{url_for('login')}}" method="post">
+            <h3>Login</h3>
+            <label for="input_cpf"> CPF: </label>
+            <input placeholder="Digite o CPF" name="form-cpf" type="number" id="input_cpf"
+                   class="form-control w-100">
 
-                <button type="submit" class="btn btn-info">Cadastrar</button>
+            <label for="input_senha">Senha:</label>
+            <input placeholder="Digite a senha" name="form-senha" type="password" id="input_senha"
+                   class="form-control w-100">
+
+            <button type="submit" class="btn btn-info">Logar</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Cadastrar
+            </button>
+        </form>
+    </div>
+</div>
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ url_for('cadastrar') }}" method="post">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Nova conta</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="input_nome">Nome:</label>
+                    <input id="input_nome" placeholder="Digite o nome" type="text" name="form-nome"
+                           class="form-control w-100" required>
+
+                    <label for="input_data">Data de nascimento:</label>
+                    <input id="input_data" type="date" name="form-nascimento" class="form-control w-100" required>
+
+                    <label for="input_cpf_cad"> CPF:</label>
+                    <input id="input_cpf_cad" placeholder="Digite o CPF" type="text" name="form-cpf"
+                           class="form-control w-100" required>
+
+                    <label for="input_email">Email:</label>
+                    <input id="input_email" placeholder="Digite o Email" type="email" name="form-email"
+                           class="form-control w-100" required>
+
+                    <label for="input_senha_cad">Senha:</label>
+                    <input id="input_senha_cad" placeholder="Digite a senha" type="password" name="form-senha"
+                           class="form-control w-100" required>
+
+                    <label for="input_cargo">Cargo:</label>
+                    <input id="input_cargo" placeholder="Digite o Cargo" type="text" name="form-cargo"
+                           class="form-control w-100">
+
+                    <label for="input_salario">Salário:</label>
+                    <input id="input_salario" placeholder="Digite o salário" type="text"  name="form-salario"
+                           class="form-control w-100">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-info">Cadastrar</button>
+                </div>
             </form>
         </div>
     </div>
-</form>
+</div>
 
 {% endblock %}
