@@ -20,35 +20,40 @@
             </div>
             <div class="modal-body">
 
-                <label for="input_nome">Nome:</label>
-                <input id="input_nome" placeholder="Digite o nome" type="text" name="form-nome"
-                       class="form-control w-100">
+                <form action="{{ url_for('cadastrar') }}" method="POST">
 
-                <label for="input_data">Data de nascimento:</label>
-                <input id="input_data" placeholder="Digite a data de nascimento" type="date"
-                       name="form-nascimento" class="form-control w-100">
+                    <label for="input_nome">Nome:</label>
+                    <input id="input_nome" placeholder="Digite o nome" type="text" name="form-nome"
+                           class="form-control w-100">
 
-                <label for="input_cpf"> CPF: </label>
-                <input id="input_cpf" placeholder="Digite o CPF" type="number" name="form-cpf"
-                       class="form-control w-100">
+                    <label for="input_data">Data de nascimento:</label>
+                    <input id="input_data" type="date" name="form-nascimento" class="form-control w-100">
 
-                <label for="input_email">Email:</label>
-                <input id="input_email" placeholder="Digite o Email" type="email" name="form-email"
-                       class="form-control w-100">
+                    <label for="input_cpf"> CPF: </label>
+                    <input id="input_cpf" placeholder="Digite o CPF" type="text" name="form-cpf"
+                           class="form-control w-100">
 
-                <label for="input_senha">Senha:</label>
-                <input id="input_senha" placeholder="Digite a senha" type="password" name="form-senha"
-                       class="form-control w-100">
+                    <label for="input_email">Email:</label>
+                    <input id="input_email" placeholder="Digite o Email" type="email" name="form-email"
+                           class="form-control w-100">
 
-                <label for="input_cargo">Cargo:</label>
-                <input id="input_cargo" placeholder="Digite o Cargo" type="text" name="form-cargo"
-                       class="form-control w-100">
+                    <label for="input_senha">Senha:</label>
+                    <input id="input_senha" placeholder="Digite a senha" type="password" name="form-senha"
+                           class="form-control w-100">
 
-                <label for="input_salario">Salário:</label>
-                <input id="input_salario" placeholder="Digite o salário" type="number" name="form-salario"
-                       class="form-control w-100">
+                    <label for="input_cargo">Cargo:</label>
+                    <input id="input_cargo" placeholder="Digite o Cargo" type="text" name="form-cargo"
+                           class="form-control w-100">
 
-                <button type="submit" class="btn btn-info">Cadastrar funcionario</button>
+                    <label for="input_salario">Salário:</label>
+                    <input id="input_salario" placeholder="Digite o salário" type="number" step="0.01"
+                           name="form-salario" class="form-control w-100">
+
+                    <hr>
+                    <!-- O botão de submit DEVE estar dentro do form -->
+                    <button type="submit" class="btn btn-info w-100">Cadastrar funcionario</button>
+
+                </form>
 
 
             </div>
@@ -67,7 +72,6 @@
         <th scope="col">Data de Nascimento</th>
         <th scope="col">CPF</th>
         <th scope="col">Email</th>
-        <th scope="col">Senha</th>
         <th scope="col">Cargo</th>
         <th scope="col">Salário</th>
         <th scope="col">Ações</th>
@@ -84,7 +88,6 @@
         <td>{{ funcionario.data_nascimento }}</td>
         <td>{{ funcionario.cpf }}</td>
         <td>{{ funcionario.email }}</td>
-        <td>{{ funcionario.senha }}</td>
         <td>{{ funcionario.cargo }}</td>
         <td>{{ funcionario.salario }}</td>
         <td>

@@ -161,11 +161,11 @@ def hexagono():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form.get('form_email')
-        senha = request.form.get('form_senha')
+        email = request.form.get('form-email')
+        senha = request.form.get('form-senha')
 
         if email and senha:
-            verificar_email = select(Funcionario).where(Funcionario.email == email)
+            verificar_email = select(Funcionario).where(Funcionario.email== email)
             resultado_email = db_session.execute(verificar_email).scalar_one_or_none()
             if resultado_email:
                 if resultado_email.check_password(senha):
@@ -176,7 +176,7 @@ def login():
                     flash(f'Senha incorreta!', 'danger')
                     return redirect(url_for('login'))
             else:
-                flash('Email não encontrado!')
+                flash('email não encontrado!')
                 return redirect(url_for('login'))
         else:
             flash('Preencha os campos!', 'danger')
@@ -197,40 +197,49 @@ def funcionarios():
     funcionarios_sql = select(Funcionario)
     funcionarios_resultado = db_session.execute(funcionarios_sql).scalars().all()
 
-    return render_template(funcionarios.html, lista_funcionarios=funcionarios_resultado)
+    return render_template('funcionarios.html', lista_funcionarios=funcionarios_resultado)
 
 
 @app.route('/cadastrar', methods=['GET', 'POST'])
+#@login_required
 def cadastrar():
     if request.method == 'POST':
+        # 1. Pegar dados (Cuidado com o nome form-salario)
         nome = request.form.get('form-nome')
-        data_nascimento = request.form.get('form-nascimento')
         email = request.form.get('form-email')
         senha = request.form.get('form-senha')
-        cpf = request.form.get('form-cpf')
-        cargo = request.form.get('form-cargo')
-        salario = request.form.get('form-salario')
+        salario_raw = request.form.get('form-salario')
+
+        # 2. Validar salário para não travar o float
+        salario_val = float(salario_raw) if salario_raw and salario_raw.strip() else 0.0
+
+        # 3. Verificar se o e-mail já existe
         ver_email = select(Funcionario).where(Funcionario.email == email)
         exists_email = db_session.execute(ver_email).scalar_one_or_none()
-        # Verificação de e-mail existente
+
         if exists_email:
-            flash(f'Email {email} já está cadastrado', 'alert-danger')
-            return render_template('funcionarios.html')
+            flash(f'Email {email} já cadastrado', 'danger')
+            return redirect(url_for('funcionarios'))
+
         try:
-            # Criando o objeto com os dados validados
-            novo_funcionario = Funcionario(nome=nome, email=email, data_nascimento=data_nascimento, cpf=cpf,
-                                           cargo=cargo, salario=float(salario))
+            novo_funcionario = Funcionario(
+                nome=nome,
+                email=email,
+                data_nascimento=request.form.get('form-nascimento'),
+                cpf=request.form.get('form-cpf'),
+                cargo=request.form.get('form-cargo'),
+                salario=salario_val
+            )
             novo_funcionario.set_password(senha)
             db_session.add(novo_funcionario)
             db_session.commit()
-            flash(f'Funcionario {nome} cadastrado com sucesso', 'success')
-            return redirect(url_for('funcionarios'))
+            flash(f'Funcionario {nome} cadastrado!', 'success')
         except Exception as e:
-            flash(f'Erro ao cadastrar conta: {e}', 'alert-danger')
-            print('errorr', e)
             db_session.rollback()
+            print(f"ERRO DE DEBUG: {e}")  # Olhe o terminal aqui!
+            flash(f'Erro: {e}', 'danger')
 
-        return redirect(url_for('funcionarios'))
+    return redirect(url_for('funcionarios'))
 
 
 if __name__ == '__main__':
