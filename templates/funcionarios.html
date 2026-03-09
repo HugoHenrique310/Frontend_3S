@@ -20,7 +20,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="{{ url_for('cadastrar') }}" method="POST">
+                <form id="form_cadastro_funcionario" action="{{ url_for('cadastrar') }}" method="POST">
 
                     <label for="input_nome">Nome:</label>
                     <input id="input_nome" placeholder="Digite o nome" type="text" name="form-nome"
@@ -52,14 +52,14 @@
                     <hr>
                     <!-- O botão de submit DEVE estar dentro do form -->
                     <button type="submit" class="btn btn-info w-100">Cadastrar funcionario</button>
+                    <a class="btn btn-danger my-2" onclick="limpaInputsCadastroFuncionario()">Cancelar</a>
 
                 </form>
 
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
