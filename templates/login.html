@@ -4,7 +4,7 @@
 
 <div class="pai_login">
     <div class="card_login">
-        <form class="form-somar" action="{{url_for('login')}}" method="post">
+        <form id="form_login" class="form-somar" action="{{url_for('login')}}" method="post">
             <h3>Login</h3>
             <label for="input_email"> Email: </label>
             <input placeholder="Digite o email" name="form-email" type="email" id="input_email"
@@ -14,10 +14,12 @@
             <input placeholder="Digite a senha" name="form-senha" type="password" id="input_senha"
                    class="form-control w-100">
 
-            <button type="submit" class="btn btn-info">Logar</button>
+            <button type="submit" class="btn btn-info">Entrar</button>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Cadastrar
             </button>
+            <button class="btn btn-danger my-2" onclick="limpaInputsLogin()">Cancelar</button>
+
         </form>
     </div>
 </div>
@@ -63,6 +65,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                     <button type="submit" class="btn btn-info">Cadastrar</button>
+
                 </div>
             </form>
         </div>
