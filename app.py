@@ -1,8 +1,4 @@
-import datetime
-
 from flask import Flask, render_template, url_for, flash, request, redirect
-from sqlalchemy.exc import SQLAlchemyError
-
 from database import db_session, Funcionario
 from sqlalchemy import select, and_, func
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
@@ -165,7 +161,7 @@ def login():
         senha = request.form.get('form-senha')
 
         if email and senha:
-            verificar_email = select(Funcionario).where(Funcionario.email== email)
+            verificar_email = select(Funcionario).where(Funcionario.email == email)
             resultado_email = db_session.execute(verificar_email).scalar_one_or_none()
             if resultado_email:
                 if resultado_email.check_password(senha):
@@ -201,7 +197,6 @@ def funcionarios():
 
 
 @app.route('/cadastrar', methods=['GET', 'POST'])
-#@login_required
 def cadastrar():
     if request.method == 'POST':
         # 1. Pegar dados (Cuidado com o nome form-salario)
@@ -243,4 +238,4 @@ def cadastrar():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5002)
+    app.run(debug=True, port=5000)
