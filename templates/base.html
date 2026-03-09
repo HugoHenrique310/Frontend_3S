@@ -21,6 +21,7 @@
         <li><a href="{{url_for('home')}}">Home</a></li>
         <li><a href="{{url_for('calculos')}}">Cálculos</a></li>
         <li><a href="{{url_for('funcionarios')}}">Funcionários</a></li>
+        <li><a href="{{url_for('animais')}}">Animais</a></li>
         {% if current_user.is_authenticated%}
         <li><a data-bs-toggle="modal" data-bs-target="#modalLogout" href="">{{ current_user.nome }}</a></li>
         {% else %}
@@ -59,5 +60,6 @@
         crossorigin="anonymous"></script>
 
 <script src="/static/js/verificacoes.js"></script>
+<script src="/static/js/apis.js"></script>
 </body>
 </html>

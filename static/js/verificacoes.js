@@ -77,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     })
 
+
     const formCadastroFuncionario = document.getElementById("form_cadastro_funcionario")
 
     formCadastroFuncionario.addEventListener("submit", function (event) {
