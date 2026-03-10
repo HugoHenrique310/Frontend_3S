@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const formCadastroFuncionario = document.getElementById("form_cadastro_funcionario")
 
+
     formCadastroFuncionario.addEventListener("submit", function (event) {
         const inputNomeFuncionario = document.getElementById("input_nome")
         const inputDatadeNascimento = document.getElementById("input_data")

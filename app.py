@@ -10,7 +10,6 @@ app.config['SECRET_KEY'] = '1234'
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db_session.remove()

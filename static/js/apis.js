@@ -21,7 +21,7 @@ function render_gato(dados) {
 
 
 async function getCachorro() {
-    let resultado = await fetch("https://api.thedogapi.com/v1/images/search")
+    let resultado = await fetch("https://dog.ceo/api/breeds/image/random")
 
     if (resultado.ok) {
         let dados = await resultado.json()
@@ -30,7 +30,7 @@ async function getCachorro() {
 }
 
 function render_cachorro(dados) {
-    let urlImg = dados[0].url
+    let urlImg = dados.message
     const imgcachorro = document.getElementById('img-cachorro')
     const iconcachorro = document.getElementById('icon-cachorro')
 
@@ -52,7 +52,7 @@ async function getRaposa() {
 }
 
 function render_raposa(dados) {
-    let urlImg = dados[0].url
+    let urlImg = dados.image
     const imgraposa = document.getElementById('img-raposa')
     const iconraposa = document.getElementById('icon-raposa')
 
