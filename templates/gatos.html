@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<div class="d-flex flex-column gap-4">
+    {% if gatos %}
+    {% for gato in gatos %}
+    <!-- Breed Row: Abyssinian -->
+    <article class="breed-card">
+        <div class="row g-0">
+            <div class="col-md-4 col-lg-3 breed-img-container">
+                <img alt="Abyssinian Cat" class="breed-img"
+                     src="{{ gato.image }}"/>
+                <span class="origin-badge shadow-sm">Origin: {{gato.origin}}</span>
+            </div>
+            <div class="col-md-8 col-lg-9 p-4 p-lg-5">
+                <div class="row h-100">
+                    <div class="col-lg-7 d-flex flex-column">
+                        <h2 class="h3 fw-bold mb-3">{{ gato.name}}</h2>
+                        <p class="text-muted small mb-4">{{ gato.description}}</p>
+                        <div class="d-flex flex-wrap gap-2 mb-4">
+                            {% for temperamento in gato.temperament%}
+                                <span class="badge bg-light text-secondary border fw-bold px-2 py-1"
+                                  style="font-size: 10px;">{{ temperamento}}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="mt-auto">
+                            <button class="btn btn-primary btn-sm px-4 py-2 fw-bold text-white rounded-3">View Breed
+                                Profile
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 d-flex align-items-center justify-content-around mt-4 mt-lg-0">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="trait-circle">
+                                <div class="trait-fill bg-warning" style="height: 95%;"></div>
+                            </div>
+                            <span class="trait-label">Energy Level: {{ gato.energy_level}}</span>
+                        </div>
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="trait-circle">
+                                <div class="trait-fill bg-info" style="height: 90%;"></div>
+                            </div>
+                            <span class="trait-label">Intelligence: {{ gato.intelligence }}</span>
+                        </div>
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="trait-circle">
+                                <div class="trait-fill bg-danger bg-opacity-50" style="height: 75%;"></div>
+                            </div>
+                            <span class="trait-label">Affection Level: {{ gato.affection_level }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    {% endfor %}
+    {% else %}
+    <h3>Nenhum gato</h3>
+    {% endif %}
+
+
+</div>
+{% endblock %}

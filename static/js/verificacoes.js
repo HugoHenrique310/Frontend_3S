@@ -147,7 +147,6 @@ document.addEventListener("DOMContentLoaded", function () {
             inputSalario.classList.remove('is-invalid')
         }
 
-
         if (temErro) {
             // Evita de enviar o form
             event.preventDefault()
@@ -156,11 +155,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
     })
 
-
 })
-
-
-
-
-
-
